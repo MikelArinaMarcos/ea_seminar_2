@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consumir API Pública</title>
+</head>
+<body>
+
+    <script>
+        fetch('https://jsonplaceholder.typicode.com/albums/')
+            .then(response => response.json())
+            .then(json => {
+                const ids = json.map((obtenId) => obtenId.id); // Obtenemos, como prueba inicial, los id de todos los albums.
+                console.log(ids); // Mostramos la consulta en el terminal.
+
+                const titles = json.map((obtenTitles) => obtenTitles.title); // Obtenemos los títulos de todos los albums.
+                console.log(titles.slice(4,10)); // Filtramos y mostramos los títulos de los albums que ocupan las posiciones de la 4 a la 9.
+
+                const datos55 = json.filter((complete) => complete.id === 55); // Obtenemos los datos del album con id 55.
+                // Mostramos en pantalla el título y el usuario relacionado con ese id.
+                console.log("El id 55 tiene como título: '" + datos55[0].title + "' y es del usuario: " + datos55[0].userId); 
+                
+                // Utilizamos el reduce para mostrar solo una lista con los datos que nos interesa.
+                const idList = json.reduce((idL, datos) => { 
+                    return Array.from([...idL, datos.id]);
+                }, []);
+                console.log(idList.slice(0, 5)); // Mostramos los id de la posición 0 a la 4 de esta lista.
+            });
+    </script>
+</body>
+</html>
